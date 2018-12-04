@@ -9,6 +9,10 @@ public class CurrentSample {
 	
 	private Arbitrator sort;
 	
+	private Arbitrator pickup;
+	
+	public boolean sorted = false;
+	
 	EV3UltrasonicSensor us = new EV3UltrasonicSensor(SensorPort.S4);
 
 	public void updateDistance(){
@@ -29,5 +33,13 @@ public class CurrentSample {
 	
 	public Arbitrator getSort() {
 		return this.sort;
+	}
+	
+	public void updatePickupArbitrator(Arbitrator pickup) {
+		this.pickup = pickup;
+	}
+	
+	public Arbitrator getPickupArbitrator() {
+		return this.pickup;
 	}
 }

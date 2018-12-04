@@ -24,7 +24,7 @@ public class CraneStop implements Behavior {
 	public void action() {
 		crane.stop();
 		Sound.beepSequence();
-		current.getSort().stop();
+		current.getSort().stop(); //Stops the current arbitrator
 	}
 
 	@Override

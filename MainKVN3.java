@@ -1,6 +1,6 @@
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
+import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
-import lejos.hardware.port.SensorPort;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 
@@ -10,8 +10,11 @@ public class MainKVN3 {
 		
 		//RegulatedMotor left = new EV3LargeRegulatedMotor(MotorPort.A);
 		//RegulatedMotor right = new EV3LargeRegulatedMotor(MotorPort.D);
+
+		EV3MediumRegulatedMotor claw = new EV3MediumRegulatedMotor(MotorPort.B); //Check this port
 		
 		EV3LargeRegulatedMotor crane = new EV3LargeRegulatedMotor(MotorPort.C);
+		
 		
 		CurrentSample current = new CurrentSample();
 		
@@ -25,13 +28,22 @@ public class MainKVN3 {
 		chassis.setLinearSpeed(200);
 		chassis.setAngularSpeed(50);*/
 		
-		//State state = new State();
 		CraneLower a = new CraneLower(crane, current);
 		CraneStop b = new CraneStop(crane, current);
-		
-		Behavior[] behave = {b, a};
-		Arbitrator sort = new Arbitrator(behave);
+		ClawPick c = new ClawPick(claw, current);
+		CraneRaise d = new CraneRaise(crane, current, claw);
+
+		Behavior[] behave1 = {b, a};
+		Arbitrator sort = new Arbitrator(behave1);
 		current.updateSortArbitrator(sort);
-		sort.go();
+		
+		Behavior[] behave2 = {c, d};
+		Arbitrator pickup = new Arbitrator(behave2);
+		current.updatePickupArbitrator(pickup);
+		
+		while (!(current.sorted)) {
+			sort.go();
+			pickup.go(); //I think this will only run AFTER the sort arbitrator is finished...
+		}
 	}
 }

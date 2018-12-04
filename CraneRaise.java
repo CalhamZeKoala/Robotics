@@ -1,4 +1,3 @@
-
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.robotics.subsumption.Behavior;
@@ -19,7 +18,7 @@ public class CraneRaise implements Behavior {
 	}
 	@Override
 	public boolean takeControl() {
-		if(current.getSample() <= 0.08 & claw.getSpeed() > 0 /*claw.isMoving()*/) {
+		if(current.getDistance() <= 0.06 && claw.isStalled()) {
 			return true;
 		}
 		return false;
@@ -27,14 +26,15 @@ public class CraneRaise implements Behavior {
 
 	@Override
 	public void action() {
-		Delay.msDelay(2000);
+		claw.setSpeed(5); //Keep applying torque so it doesn't drop the block (may need adjustment)
 		crane.setSpeed(100);
 		crane.backward();
+		Delay.msDelay(200); //How long it takes to lift the crane (may need adjustment)
+		current.getPickupArbitrator().stop();
+		current.sorted = true;
 	}
 
 	@Override
 	public void suppress() {
-
 	}
-
 }
