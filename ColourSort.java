@@ -3,7 +3,6 @@ import java.util.Arrays;
 
 public class ColourSort {
 
-	
 	public int[] returnOrdered (int[] Arr) {
 		int[] orderedArr = sortIt(Arr);
 		for (int i = 0; i < orderedArr.length; i++) {
@@ -31,7 +30,6 @@ public class ColourSort {
 	
 	public int[] sortIt(int[] Arr) {
 		int[] orderedArr = new int[Arr.length];
-		System.out.println(Arrays.toString(Arr));
 		for (int i = 0; i < Arr.length; i++) {
 			if (Arr[i] == Color.RED) {
 				orderedArr[i] = 0;
