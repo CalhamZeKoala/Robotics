@@ -1,6 +1,8 @@
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
+import lejos.hardware.port.SensorPort;
+import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 
@@ -18,7 +20,7 @@ public class MainKVN3 {
 		
 		CurrentSample current = new CurrentSample();
 		
-		//EV3ColorSensor cs = new EV3ColorSensor(SensorPort.S1);
+		EV3ColorSensor cs = new EV3ColorSensor(SensorPort.S1);
 		
 		/*Wheel wL = WheeledChassis.modelWheel(left, 56).offset(-(125 / 2));
 		Wheel wR = WheeledChassis.modelWheel(right, 56).offset((125 / 2));
@@ -40,6 +42,8 @@ public class MainKVN3 {
 		Behavior[] behave2 = {c, d};
 		Arbitrator pickup = new Arbitrator(behave2);
 		current.updatePickupArbitrator(pickup);
+		
+		ChangeColourPosition ccp = new ChangeColourPosition(cs, current); //Thread this
 		
 		while (!(current.sorted)) {
 			sort.go();

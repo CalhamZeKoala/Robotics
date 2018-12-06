@@ -11,6 +11,18 @@ public class CurrentSample {
 	
 	private Arbitrator pickup;
 	
+	private int[] posArr; //current positions of bricks
+	
+	private int[] sortedArr; //sorted positions of bricks
+	
+	private int currentPos; //current EV3 position in terms of array
+	
+	private int currentOrderPos; //current position up to sorted elements
+	
+	private int currentSelection; //currently selected brick
+	
+	private boolean holding; //if a brick is currently being held
+	
 	public boolean sorted = false;
 	
 	EV3UltrasonicSensor us = new EV3UltrasonicSensor(SensorPort.S4);
@@ -42,4 +54,53 @@ public class CurrentSample {
 	public Arbitrator getPickupArbitrator() {
 		return this.pickup;
 	}
+	
+	public void setCurrentPosArr(int[] Arr) {
+		this.posArr = Arr;
+	}
+	
+	public int[] getCurrentPosArr() {
+		return this.posArr;
+	}
+	
+	public void setSortedArr(int[] Arr) {
+		this.sortedArr = Arr;
+	}
+	
+	public int[] getSortedArr() {
+		return this.sortedArr;
+	}
+	
+	public void setHolding(boolean hold) {
+		this.holding = hold;
+	}
+	
+	public boolean getHolding() {
+		return this.holding;
+	}
+	
+	public void setCurrentPos(int pos) {
+		this.currentPos = pos;
+	}
+	
+	public int getCurrentPos() {
+		return this.currentPos;
+	}
+	
+	public void setCurrentOrderPos(int pos) {
+		this.currentOrderPos = pos;
+	}
+	
+	public int getCurrentOrderPos() {
+		return this.currentOrderPos;
+	}
+	
+	public void setCurrentSelection(int pos) {
+		this.currentSelection = pos;
+	}
+	
+	public int getCurrentSelection() {
+		return this.currentSelection;
+	}
+	
 }
